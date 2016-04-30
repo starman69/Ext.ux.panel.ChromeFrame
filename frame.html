@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<title>Chrome Frame Page</title>
+</head>
+<body>
+Chrome Frame Page<br>
+<script>
+    document.write(new Date().getTime());
+</script>
+</body>
+<script type="text/javascript">
+
+window.onload = function () {
+    alert('cf: frame loaded');
+};
+
+// window.externalHost is Chrome's interface to host window
+window.externalHost.onmessage = function (evt) {
+	evt = evt || window.event;
+
+	//var data = JSON.stringify(evt.data);
+    alert('cf: '+ evt.data);
+
+	window.externalHost.postMessage(JSON.stringify({
+		message: 'Message to Host'
+    }), '*');
+};
+
+
+</script>
+</html>
